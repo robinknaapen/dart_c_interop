@@ -1,0 +1,109 @@
+package flutter:widgets;
+
+interface enums {
+	variant main-axis-alignment {
+		start,
+		end,
+		center,
+		space-between,
+		space-around,
+		space-evenly,
+	}
+
+	variant text-direction {
+		rtl,
+		ltr,
+	}
+
+	variant vertical-direction {
+		up,
+		down,
+	}
+
+	variant main-axis-size {
+		min,
+		max,
+	}
+
+	variant text-baseline {
+		alphabetic,
+		ideographic,
+	}
+
+	variant cross-axis-alignment {
+		start,
+		end,
+		center,
+		stretch,
+		baseline,
+	}
+}
+
+interface alignment {
+	resource alignment {
+		constructor(start: f64, y: f64);
+	}
+
+	resource alignment-directional {
+		constructor(start: f64, y: f64);
+	}
+
+	variant alignment-geometry {
+		alignment(alignment),
+		alignment-directional(alignment-directional),
+	}
+}
+
+interface widget {
+	use alignment.{alignment-geometry};
+	use enums.{
+		cross-axis-alignment,
+		main-axis-alignment,
+		main-axis-size,
+		text-direction,
+		text-baseline,
+		vertical-direction,
+	};
+
+	variant widget {
+		col(col),
+		col(row),
+	}
+
+	resource col {
+		constructor(
+			cross-axis-alignment: option<cross-axis-alignment>,
+
+			main-axis-alignment: option<main-axis-alignment>,
+			main-axis-size: option<main-axis-size>,
+
+			text-direction: option<text-direction>,
+			text-baseline: option<text-baseline>,
+
+			vertical-direction: option<vertical-direction>,
+
+			children: list<widget>,
+		);
+	}
+
+	resource row {
+		constructor(
+			children: list<widget>,
+
+			cross-axis-alignment: option<cross-axis-alignment>,
+
+			main-axis-alignment: option<main-axis-alignment>,
+			main-axis-size: option<main-axis-size>,
+
+			text-direction: option<text-direction>,
+			text-baseline: option<text-baseline>,
+
+			vertical-direction: option<vertical-direction>,
+		);
+	}
+}
+
+world renderer {
+  use widget.{widget};
+  export render: func(widget: widget) -> f64;
+}

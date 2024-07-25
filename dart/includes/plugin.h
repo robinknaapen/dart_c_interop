@@ -7,6 +7,7 @@ extern "C" {
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <stddef.h>
 
 typedef struct plugin_string_t {
   uint8_t*ptr;

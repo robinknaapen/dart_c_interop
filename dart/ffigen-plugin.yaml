@@ -1,5 +1,6 @@
 name: Plugin
+description: Binding for plugin
 output: src/plugin/plugn.dart
 headers:
   entry-points:
-    - inludes/plugin.h
+    - includes/plugin.h

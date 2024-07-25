@@ -1,4 +1,4 @@
-package flutter:widgets;
+package flutter:renderer;
 
 interface enums {
 	variant main-axis-alignment {
@@ -65,27 +65,6 @@ interface widget {
 		vertical-direction,
 	};
 
-	variant widget {
-		col(col),
-		col(row),
-	}
-
-	resource col {
-		constructor(
-			cross-axis-alignment: option<cross-axis-alignment>,
-
-			main-axis-alignment: option<main-axis-alignment>,
-			main-axis-size: option<main-axis-size>,
-
-			text-direction: option<text-direction>,
-			text-baseline: option<text-baseline>,
-
-			vertical-direction: option<vertical-direction>,
-
-			children: list<widget>,
-		);
-	}
-
 	resource row {
 		constructor(
 			children: list<widget>,
@@ -101,9 +80,56 @@ interface widget {
 			vertical-direction: option<vertical-direction>,
 		);
 	}
+
+	resource col {
+		constructor(
+			children: list<widget>,
+
+			cross-axis-alignment: option<cross-axis-alignment>,
+
+			main-axis-alignment: option<main-axis-alignment>,
+			main-axis-size: option<main-axis-size>,
+
+			text-direction: option<text-direction>,
+			text-baseline: option<text-baseline>,
+
+			vertical-direction: option<vertical-direction>,
+		);
+	}
+
+	resource text {
+		constructor(
+			data: string,
+			// TODO: the rest
+		);
+	}
+
+	resource text-rich {
+		// TODO: rich
+		constructor();
+	}
+
+	variant widget {
+		col(col),
+		row(row),
+		text(text),
+		text-rich(text-rich),
+	}
 }
 
-world renderer {
-  use widget.{widget};
-  export render: func(widget: widget) -> f64;
+interface renderer {
+	use widget.{widget};
+
+	variant error {
+		common,
+	}
+
+	resource renderer {
+		render: func(widget: widget) -> option<error>;
+	}
+}
+
+world plugin {
+	use renderer.{renderer, error};
+	export run: func(renderer: renderer) -> option<error>;
 }

@@ -1,0 +1,10 @@
+# https://docs.wasmtime.dev/
+# https://docs.wasmtime.dev/c-api/
+name: Wasmtime
+description: Bindings for wasmtime
+output: src/wasmtime/wasmtime.dart
+headers:
+  entry-points:
+    - includes/wasmtime.h
+# llvm-path:
+#   - ./lib/wasmtime/libwasmtime.so

@@ -1,0 +1,5 @@
+name: Plugin
+output: src/plugin/plugn.dart
+headers:
+  entry-points:
+    - inludes/plugin.h
